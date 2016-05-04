@@ -4,7 +4,7 @@
 #
 # Copyright (c) 2016 Jason Blalock, All Rights Reserved.
 
-include_recipe 'apt'
+include_recipe 'apt::default'
 
 apt_repository "git-core" do
   uri node['git']['repository']['uri']
@@ -16,4 +16,6 @@ apt_repository "git-core" do
   deb_src true
 end
 
-package 'git'
+package 'git' do
+  action :upgrade
+end
