@@ -9,7 +9,7 @@ include_recipe 'apt::default'
 apt_repository "git-core" do
   uri node['git']['repository']['uri']
   components ['main']
-  distribution node['git']['platform']['release']
+  distribution node['git']['platform']['distro']
   key node['git']['repository']['key']
   keyserver node['git']['repository']['keyserver']
   action :add
