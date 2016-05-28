@@ -15,7 +15,6 @@ when '16.04'
 end
 
 default['git']['platform']['distro'] = distro_name
-default['git']['platform']['architecture'] = 'amd64'
 default['git']['repository']['uri'] = 'http://ppa.launchpad.net/git-core/ppa/ubuntu'
 default['git']['repository']['keyserver'] = 'keyserver.ubuntu.com'
 default['git']['repository']['key'] = 'E1DF1F24'
