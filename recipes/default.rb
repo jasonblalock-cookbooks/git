@@ -1,19 +1,15 @@
 #
-# Cookbook Name:: git
+# Cookbook:: git_ppa
 # Recipe:: default
 #
-# Copyright (c) 2016 Jason Blalock, All Rights Reserved.
+# Copyright:: 2017, Jason Blalock, All Rights Reserved.
 
-include_recipe 'apt::default'
-
-apt_repository "git-core" do
-  uri node['git']['repository']['uri']
+apt_repository 'git-core' do
+  uri 'http://ppa.launchpad.net/git-core/ppa/ubuntu'
+  distribution node['lsb']['codename']
   components ['main']
-  distribution node['git']['platform']['distro']
-  key node['git']['repository']['key']
-  keyserver node['git']['repository']['keyserver']
-  action :add
-  deb_src true
+  key 'E1DF1F24'
+  keyserver 'keyserver.ubuntu.com'
 end
 
 package 'git' do
