@@ -6,6 +6,7 @@ gem 'rake'
 
 group :integration do
   gem 'test-kitchen', '~> 1.2'
+  gem 'kitchen-inspec', '~> 0.19'
 end
 
 group :vagrant do
