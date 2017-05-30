@@ -13,6 +13,47 @@
 
 require 'bundler/setup'
 
+desc 'Clean some generated files'
+task :clean do
+  %w(
+    Berksfile.lock
+    .bundle
+    .cache
+    coverage
+    Gemfile.lock
+    .kitchen
+    metadata.json
+    vendor
+  ).each { |f| FileUtils.rm_rf(Dir.glob(f)) }
+end
+
+namespace :style do
+  require 'cookstyle'
+  require 'rubocop/rake_task'
+  desc 'Run Ruby style checks using cookstyle rubocop'
+  RuboCop::RakeTask.new(:ruby) do |task|
+    task.options << '--display-cop-names'
+  end
+
+  require 'foodcritic'
+  desc 'Run Chef style checks using foodcritic'
+  FoodCritic::Rake::LintTask.new(:chef) do |t|
+    t.options = {
+      fail_tags: ['any'],
+      progress: true
+    }
+  end
+end
+
+desc 'Run all style checks'
+# task style: %w(style:chef style:ruby)
+task 'style' do
+  %w(style:chef style:ruby).each do |task_name|
+    sh "rake #{task_name}" do
+    end
+  end
+end
+
 desc 'Run Test Kitchen integration tests'
 namespace :integration do
   # Gets a collection of instances.
