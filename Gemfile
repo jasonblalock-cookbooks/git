@@ -11,6 +11,8 @@ source 'https://rubygems.org'
 
 gem 'rake', '~> 12.0'
 gem 'chef-dk'
+gem 'cookstyle'
+gem 'foodcritic'
 
 group :integration do
   gem 'test-kitchen', '~> 1.16'
