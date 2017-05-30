@@ -9,11 +9,10 @@ machine:
 dependencies:
   override:
   - curl -L https://omnitruck.chef.io/install.sh | sudo bash -s -- -P chefdk -v 1.4.3
-  - chef exec bundle check --path=vendor/bundle || chef exec bundle install --path=vendor/bundle --jobs=4 --retry=3 --without=vagrant:
-      timeout: 900
+  - chef exec gem install kitchen-docker kitchen-inspec
 
 test:
   override:
-  - TESTS=(${TESTS// / }) ; chef exec bundle exec rake integration:docker[${TESTS[$CIRCLE_NODE_INDEX]}]:
+  - TESTS=(${TESTS// / }) ; chef exec rake integration:docker[${TESTS[$CIRCLE_NODE_INDEX]}]:
       parallel: true #  Project Settings -> Tweaks -> Adjust Parallelism -> 2
       timeout: 900
